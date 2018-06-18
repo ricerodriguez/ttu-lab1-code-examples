@@ -1,3 +1,8 @@
+// Counter
+// ============================================================================
+// Simple counter module counts every positive edge of the input clock until the
+// count register overflows back to 0
+// ============================================================================
 module counter(
      // Module parameters (inputs/outputs) go here
      input clk,                    // 100 MHz clock

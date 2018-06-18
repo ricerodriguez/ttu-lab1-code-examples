@@ -1,6 +1,15 @@
+// 1 Second Counter
+// ============================================================================
+// Simple module counts how many seconds have passed until the seconds register
+// overflows back to 0 after it hits 15. Uses two counters, the first counter
+// just counts the positive edges of the clock, the second counts the seconds.
+// When the first counter has reached half the clock cycles in a second (half
+// because it's only counting positive edges) then it's been 1 second. When this
+// happpens, reset the first counter and increment the second counter.
+// ============================================================================
 module counter_1sec(
      input clk,
-     // 4-bit register can count up to 16 seconds
+     // 4-bit register can count up to 2^4 - 1 = 15 seconds
      output reg [3:0] seconds = 0
 );
 

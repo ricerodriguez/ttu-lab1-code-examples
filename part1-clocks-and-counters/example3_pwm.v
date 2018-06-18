@@ -1,3 +1,11 @@
+// Pulse Width Modulation (PWM) Signal Generator
+// ===========================================================================
+// Simple module generates a PWM signal using a counter and a comparator. 8-bit
+// counter counts positive edges of the clock until it passes the maximum, then
+// alternates. The duty cycle in percentage is the duty given / max of the
+// counter * 100. So for a duty cycle of 50%, the user would input 128 because
+// 128/255*100 is roughly 50%.
+// ===========================================================================
 module pwm(
 	input clk,
 	input [7:0] duty,

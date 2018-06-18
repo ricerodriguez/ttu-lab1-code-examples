@@ -9,6 +9,7 @@
 // the signal into the Pmod port. Hertz is measured in cycles/sec, and since we
 // know it's 1/16th of a second, all we have to do is multiply the number of
 // edges we've counted by 16.
+// ============================================================================
 module freq_counter(
 	// 100 MHz clock
 	input CLK,

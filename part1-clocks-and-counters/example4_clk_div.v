@@ -1,8 +1,11 @@
-`timescale 1ns / 1ps
-////////////////////////////////////////////////////////////////////////////////
-// Code adapted from Diligent Inc, divides 100MHz clock to 25KHz
-////////////////////////////////////////////////////////////////////////////////
-
+// Clock Divider
+// ============================================================================
+// Divides the onboard 100MHz clock down to a slower clock speed. Useful for
+// ensuring a stable connection with the rover. Works similarly to PWM; uses a
+// counter and a comparator. Main difference is that the counter resets after
+// it's reached the scale.
+// ============================================================================
+// (Adapted from https://reference.digilentinc.com/learn/programmable-logic/tutorials/counter-and-clock-divider/start)
 module clk_div(
 	input clk,
 	input reset,
