@@ -164,3 +164,14 @@ understand, you should be aware of this difference between blocking and
 non-blocking assignments. If you ever run into issues with this, it will
 probably be in your test bench since you won't be using delays outside of test
 benches.
+
+## Resources:
+https://www.hdlworks.com/hdl_corner/verilog_ref/items/ProceduralAssignment.htm
+
+https://class.ee.washington.edu/371/peckol/doc/Always@.pdf
+
+http://www.asic-world.com/verilog/verilog_one_day.html
+
+https://inst.eecs.berkeley.edu/~cs150/Documents/Nets.pdf
+
+https://www.nandland.com/verilog/tutorials/tutorial-introduction-to-verilog-for-beginners.html
