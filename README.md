@@ -158,7 +158,9 @@ end
 ```
 
 ### `always @` Blocks
-`always @` blocks execute the lines of code inside them every time the condition in the *sensitivity list* is satisfied, meaning that there is a change in the variables listed in the sensitivity list. Here's an example.
+`always @` blocks execute the lines of code inside them every time the condition
+in the *sensitivity list* is satisfied, meaning that there is a change in the
+variables listed in the sensitivity list. Here's an example.
 
 **Example 0.3: Always @ Block Template**
 ```verilog
@@ -188,7 +190,11 @@ hard-to-detect issues.** Check the link in resources for more info about how to
 use this.
 
 ### `case`, `casex`, and `casez` Statements
-You'll be making a ton of state machines, and unless you want to write an `if`-`else` statement for every single scenario, you're going to want to use `case` statements. `case` statements work similarly to `switch` statements in C++, except without the annoying bits. You don't need a `break` at the end of every case, it will just skip all the other cases like an `if`-`else` statement.
+You'll be making a ton of state machines, and unless you want to write an
+`if`-`else` statement for every single scenario, you're going to want to use
+`case` statements. `case` statements work similarly to `switch` statements in
+C++, except without the annoying bits. You don't need a `break` at the end of
+every case, it will just skip all the other cases like an `if`-`else` statement.
 
 **Example 0.4: Case Statements**
 ```verilog
@@ -198,7 +204,9 @@ case(A)
 default: // Code
 endcase
 ```
-When `A` is 1, that code will execute. When `A` is 2, *that* code will execute. If `A` is neither, then the `default` code will execute. You'll usually set this up for state machines like this:
+When `A` is 1, that code will execute. When `A` is 2, *that* code will execute.
+If `A` is neither, then the `default` code will execute. You'll usually set this
+up for state machines like this:
 
 **Example 0.41 State Machine Template**
 ```verilog
@@ -212,7 +220,9 @@ case(state)
      default: // Do something here
 endcase
 ```
-Don't forget to have a way for the next state to get calculated. You might also use `casex` statements. This is the same thing as a case statement, except you can use don't care bits.
+Don't forget to have a way for the next state to get calculated. You might also
+use `casex` statements. This is the same thing as a case statement, except you
+can use don't care bits.
 
 **Example 0.42 Casex**
 ```verilog
