@@ -188,7 +188,11 @@ hard-to-detect issues.** Check the link in resources for more info about how to
 use this.
 
 ### `case`, `casex`, and `casez` Statements
-You'll be making a ton of state machines, and unless you want to write an `if`-`else` statement for every single scenario, you're going to want to use `case` statements. `case` statements work similarly to `switch` statements in C++, except without the annoying bits. You don't need a `break` at the end of every case, it will just skip all the other cases like an `if`-`else` statement.
+You'll be making a ton of state machines, and unless you want to write an
+`if`-`else` statement for every single scenario, you're going to want to use
+`case` statements. `case` statements work similarly to `switch` statements in
+C++, except without the annoying bits. You don't need a `break` at the end of
+every case, it will just skip all the other cases like an `if`-`else` statement.
 
 **Example 0.4: Case Statements**
 ```verilog
@@ -230,6 +234,7 @@ same line of code as if it were `1101` because the LSB is `1` in both cases and
 that's all that matters. In a `casex` statement, you can put x's in place of
 don't care bits.
 
+<<<<<<< HEAD
 You are very unlikely to use `casez` statements in Project Lab 1. But just in
 case, `casez` works similarly to `casex`. You can put x's in place of don't care
 bits. You can also put z's in place of high-impedance bits. High impedance means
@@ -245,6 +250,9 @@ through it that's too big and Vivado just disconnected the whole thing entirely.
 An example of the latter is if in your module you have `reg [1:0] A` and you
 tried to pass a 3-bit value to it or you connected it to a 3-bit wire. Always
 make sure your variable sizes match each other.
+=======
+You are very unlikely to use `casez` statements in Project Lab 1. But just in case, `casez` works similarly to `casex`. You can put x's in place of don't care bits. You can also bit z's in place of high-impedance bits. High impedance means it was disconnected. It works like a tri-state buffer (you can crack open your ECE 2372 book or Google it if you want). In Verilog, each bit of variables has four possible variables: 0, 1, X, or Z. 0 and 1 are self-explanatory. X means the value is unknown. Z means the bit is disconnected entirely. You don't need to really know this, but it should help to know what Z means because the only time you're likely to see it is in your test bench. If your values shows up as Z in your test bench, it probably means you either forgot to instantiate the module (it shows as Z because it's *disconnected*) or you tried to pass a value through it that's too big and Vivado just disconnected the whole thing entirely. An example of the latter is if in your module you have `reg [1:0] A` and you tried to pass a 3-bit value to it or you connected it to a 3-bit wire. Always make sure your variable sizes match each other.
+>>>>>>> 65bce6bb84699332501b9693e934aa8531c7ba01
 
 ## Resources:
 https://www.hdlworks.com/hdl_corner/verilog_ref/items/ProceduralAssignment.htm
