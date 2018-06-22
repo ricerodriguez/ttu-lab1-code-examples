@@ -56,7 +56,7 @@ because these assignments are *procedural*, these assignments have to be done
 inside of *procedural blocks*, e.g. ``always @`` blocks, ``begin...end`` blocks,
 etc.
 
-**Example 0.2: Procedural Assignments**
+**Example 0.11: Procedural Assignments**
 ```verilog
 // You may initialize reg when declaring it, otherwise
 // updating their values must be inside a procedural block
@@ -85,7 +85,7 @@ assignment has finished executing. Non-blocking assignments don't do this, and
 the line after the a non-blocking assignment may execute before the non-blocking
 assignment has finished executing.
 
-**Example 0.3: Blocking Assignments (with Delays)**
+**Example 0.2: Blocking Assignments (with Delays)**
 ```verilog
 reg A = 0;
 reg B = 0;
@@ -105,7 +105,7 @@ At 20 ns, `A = 2`.
 At 30 ns, `B = 1`.  
 At 40 ns, `B = 2`.  
 
-**Example 0.4: Non-Blocking Assignments (with Delays)**
+**Example 0.21: Non-Blocking Assignments (with Delays)**
 ```verilog
 reg A = 0;
 reg B = 0;
@@ -137,13 +137,13 @@ blocking assignments will prevent it from messing up your values. If you need
 the two assignments to happen at the same time (e.g. swapping the values of two
 variables), you'll want to use non-blocking assignments.
 
-**Example 0.5: Non-Blocking Assignments (without Delays)**
+**Example 0.22: Non-Blocking Assignments (without Delays)**
 ```verilog
 reg A = 1;
 reg B = 0;
 begin
-     A <= B;
-     B <= A;
+     A <= B; // A = 0
+     B <= A; // B = 1
 end
 ```
 This will swap the two values of the variables, so `A = 0` and `B = 1`. If you
@@ -157,13 +157,80 @@ begin
 end
 ```
 
-For what you'll be doing in Lab 1, if you don't specify a time-step (and you
-probably won't) then this probably won't make a difference and are effectively
-interchangeable, however if you are getting a strange value that you don't
-understand, you should be aware of this difference between blocking and
-non-blocking assignments. If you ever run into issues with this, it will
-probably be in your test bench since you won't be using delays outside of test
-benches.
+### `always @` Blocks
+`always @` blocks execute the lines of code inside them every time the condition in the *sensitivity list* is satisfied, meaning that there is a change in the variables listed in the sensitivity list. Here's an example.
+
+**Example 0.3: Always @ Block Template**
+```verilog
+always @ (sensitivity)
+begin
+// Code here. Note that if it's just one line of code,
+// begin and end are unnecessary
+end
+```
+You will usually be using this for the clock like this:
+
+**Example 0.31: Using the Clock in an Always @ Block**
+```verilog
+always @ (posedge clk)
+begin
+// Code here
+end
+```
+This means that at each *positive edge* of the clock, the code will execute.
+This is useful for timing and counters, which you'll be using a lot of. You can
+put other variables inside the sensitivity list too, however, **you should be
+careful about using other variables than the clock in the sensitivity list**.
+Using other variables in the sensitivity list isn't bad practice and sometimes
+is even necessary, but you should realize that **it will make your code
+asynchronous. Doing this without carefully understanding your code can lead to
+hard-to-detect issues.** Check the link in resources for more info about how to
+use this.
+
+### `case`, `casex`, and `casez` Statements
+You'll be making a ton of state machines, and unless you want to write an `if`-`else` statement for every single scenario, you're going to want to use `case` statements. `case` statements work similarly to `switch` statements in C++, except without the annoying bits. You don't need a `break` at the end of every case, it will just skip all the other cases like an `if`-`else` statement.
+
+**Example 0.4: Case Statements**
+```verilog
+case(A)
+     1:  // Code
+     2:  // Code
+default: // Code
+endcase
+```
+When `A` is 1, that code will execute. When `A` is 2, *that* code will execute. If `A` is neither, then the `default` code will execute. You'll usually set this up for state machines like this:
+
+**Example 0.41 State Machine Template**
+```verilog
+parameter S0 = 3'd0, S1 = 3'd1, S2 = 3'd2;
+reg [2:0] state = S0;
+always @ (posedge clk)
+case(state)
+     S0: // Do something here
+     S1: // Do something here
+     S2: // Do something here
+     default: // Do something here
+endcase
+```
+Don't forget to have a way for the next state to get calculated. You might also use `casex` statements. This is the same thing as a case statement, except you can use don't care bits.
+
+**Example 0.42 Casex**
+```verilog
+reg [3:0] thing = 4'b0000;
+always @ (posedge clk)
+casex(thing)
+     4'bxxx1: // Do something here
+     default: // Do something here
+encase
+```
+In this case, regardless of what the first three bits of the register are, if
+the LSB is 1, that code executes. The rest of the bits are don't-care bits. For
+example, if `thing` was a 4-bit binary containing `0011` it would execute that
+same line of code as if it were `1101` because the LSB is `1` in both cases and
+that's all that matters. In a `casex` statement, you can put x's in place of
+don't care bits.
+
+You are very unlikely to use `casez` statements in Project Lab 1. But just in case, `casez` works similarly to `casex`. You can put x's in place of don't care bits. You can also bit z's in place of high-impedance bits. High impedance means it was disconnected. It works like a tri-state buffer (you can crack open your ECE 2372 book or Google it if you want). In Verilog, each bit of variables has four possible variables: 0, 1, X, or Z. 0 and 1 are self-explanatory. X means the value is unknown. Z means the bit is disconnected entirely. You don't need to really know this, but it should help to know what Z means because the only time you're likely to see it is in your test bench. If your values shows up as Z in your test bench, it probably means you either forgot to instantiate the module (it shows as Z because it's *disconnected*) or you tried to pass a value through it that's too big and Vivado just disconnected the whole thing entirely. An example of the latter is if in your module you have `reg [1:0] A` and you tried to pass a 3-bit value to it or you connected it to a 3-bit wire. Always make sure your variable sizes match each other.
 
 ## Resources:
 https://www.hdlworks.com/hdl_corner/verilog_ref/items/ProceduralAssignment.htm
