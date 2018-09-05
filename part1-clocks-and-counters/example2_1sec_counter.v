@@ -17,7 +17,6 @@ module counter_1sec(
      // hits 100 million - 1 positive clock edges (of a 100 MHz clock), one
      // second has passed.
      reg [31:0] count = 32'b0;
-     reg last = 0;
 
      // The Basys 3 clock is 100 MHz, meaning it oscillates 100 million times in
      // one second. We're only counting the positive edge ticks of the clock, so
