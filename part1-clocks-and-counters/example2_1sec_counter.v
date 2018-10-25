@@ -18,29 +18,28 @@ module counter_1sec(
      // second has passed.
      reg [31:0] count = 32'b0;
 
-     // The Basys 3 clock is 100 MHz, meaning it oscillates 100 million times in
-     // one second. We're only counting the positive edge ticks of the clock, so
-     // divide 100 million by 2. Subtract 1 because we start at 0.
-     localparam scale = 100000000/2 - 1;
+     // The Basys 3 clock is 100 MHz, meaning there are 100 million cycles in
+     // one second. There is one rising edge in one cycle (period), so counting
+     // the rising edges also gives us the number of cycles.
+     localparam max = 100000000;
 
      // This line is used for testbenching. If you don't do this, you'll have to
      // wait for the simulator to count all the way to a 100 million when you
      // testbench it. Adjust the simulated clock in your testbench to a slower
      // clock. The 1000 indicates we're using a 1kHz clock. In your testbench,
      // alternate your clock for the period of 1kHz (1 million nanoseconds)
-     // localparam scale = 1000/2 - 1;
+     // localparam max = 1000;
 
      always @ (posedge clk)
      begin
           // If it reached the max, reset back to 0
-          if(count >= scale) begin
+          if(count >= max) begin
                count = 0;
                seconds = seconds + 1;
           end
           // Otherwise keep counting
           else
                count = count + 1;
-
      end
 
 endmodule

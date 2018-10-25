@@ -9,18 +9,16 @@ module freq_count_tb();
      wire [19:0] freq;
      reg clk, in, enable;
      wire done;
-
      initial begin
           clk = 0;
           in = 0;
           enable = 1;
-          // Test frequency is 500 kHz
+          // Test frequency is 250 kHz
           forever #2000 in = !in;
      end
 
      // Clock is 100 MHz
-     always
-          #10 clk = !clk;
+     always #5 clk = !clk;
 
      freq_counterdiv16 tb1(
           .CLK(clk),
