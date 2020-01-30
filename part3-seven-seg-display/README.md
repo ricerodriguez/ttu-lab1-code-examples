@@ -4,7 +4,7 @@ Let's say you want to make your 7-segment display read "LAb1" but you don't know
 ### Choosing the Segments
 ![Don't forget to read these as right to left (LSB to MSB)](https://reference.digilentinc.com/_media/basys3-_seven_segment_display_driving.png?w=600&tok=0639f2)
 
-In Verilog, the seven segment display (the individual cathodes) is a 7-bit array `output reg [7:0] seg`. (To make procedural updates to it, you'll want to make it a `reg`.) In this diagram, the cathodes are labeled from LSB to MSB (right to left) so keep this in mind when figuring out which segments are needed to display. Don't forget, they're also active LOW. So, for example, to show "LAb1" you would do this:
+In Verilog, the seven segment display (the individual cathodes) is a 7-bit array `output reg [6:0] seg`. (To make procedural updates to it, you'll want to make it a `reg`.) In this diagram, the cathodes are labeled from LSB to MSB (right to left) so keep this in mind when figuring out which segments are needed to display. Don't forget, they're also active LOW. So, for example, to show "LAb1" you would do this:
 L: `7'b1000111`
 A: `7'b0001000`
 b: `7'b0000011`
