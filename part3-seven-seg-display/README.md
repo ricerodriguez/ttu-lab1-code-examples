@@ -20,10 +20,14 @@ always @ (posedge clk)
      count = count + 1;
 ```
 Notice the register is 19 bits. The frequency is found like this:
-<img src="https://latex.codecogs.com/gif.latex?f=\frac{\text{clock&space;speed}}{2^{\text{size&space;of&space;counter}}}" title="f=\frac{\text{clock speed}}{2^{\text{size of counter}}}" />
+```math
+f=\frac{\text{clock speed}}{2^{\text{size of counter}}}
+```
 
 For us, that means
-<img src="https://latex.codecogs.com/gif.latex?f=\frac{100\times10^6\&space;\text{Hz}}{2^{19\&space;\text{bits}}}=190.735" title="f=\frac{100\times10^6\ \text{Hz}}{2^{19\ \text{bits}}}=190.735" />
+```math
+f=\frac{100\times10^6\ \text{Hz}}{2^{19\ \text{bits}}}=190.735
+```
 
 Make sure your counter frequency is at least higher than 45 Hz (21 bits maximum).
 
